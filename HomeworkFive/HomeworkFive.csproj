@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,7 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factory\DishFactory.cs" />
+    <Compile Include="Factory\ChiliFryMeatFactory.cs" />
+    <Compile Include="Factory\DishFactoryMethod.cs" />
+    <Compile Include="Factory\IFactory.cs" />
+    <Compile Include="Factory\SimpleDishFactory.cs" />
+    <Compile Include="Factory\TasteSnakeFactory.cs" />
+    <Compile Include="Factory\WoundBloodWangFactory.cs" />
     <Compile Include="Model\BaseDish.cs" />
     <Compile Include="Model\ChiliFryMeat.cs" />
     <Compile Include="Model\Consumer.cs" />
