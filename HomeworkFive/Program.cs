@@ -1,4 +1,5 @@
 ﻿using HomeworkFive.Factory;
+using HomeworkFive.Factory.AbstractFactory;
 using HomeworkFive.Model;
 using System;
 
@@ -47,6 +48,19 @@ namespace HomeworkFive
                 baseDish.PointDish(pointDishContext);
             }
 
+            {
+                Consumer consumer = new Consumer { Name = "湖南牙子" };
+                Console.WriteLine("来了一个湖南牙子,点了一个湘菜套餐。如下:");
+                DishAbstractFactory dishAbstractFactory = new HuNanDishFactory();
+                dishAbstractFactory.Show();
+            }
+
+            {
+                Consumer consumer = new Consumer { Name = "东北大汉" };
+                Console.WriteLine("来了一个东北大汉,点了一桌东北菜。如下:");
+                DishAbstractFactory dishAbstractFactory = new NorthEastDishFactory();
+                dishAbstractFactory.Show();
+            }
 
             Console.ReadKey();
         }

@@ -21,7 +21,7 @@ namespace HomeworkFive.Model
 
         public override void Show()
         {
-            Console.WriteLine("This is 毛血旺,推荐指数:★★★★");
+            Console.WriteLine($"This is {Name},推荐指数:★★★★★");
         }
     }
 }

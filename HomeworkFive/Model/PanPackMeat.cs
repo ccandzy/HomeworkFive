@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace HomeworkFive.Model
 {
-    public class TasteSnake : BaseDish
+    public class PanPackMeat : BaseDish
     {
-        public TasteSnake()
+        public PanPackMeat()
         {
-            Id = 2;
-            Name = "口味蛇";
+            Id = 1;
+            Name = "锅包肉";
+           
         }
 
         public override void PointDish(PointDishContext pointDishContext)
         {
-            Console.WriteLine($"{pointDishContext.TableNumber}桌{pointDishContext.ConsumerName}{Name}{pointDishContext.Quantity}份,口味{pointDishContext.HotType}");
+            
         }
 
         public override void Show()

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace HomeworkFive.Model
 {
-    public class TasteSnake : BaseDish
+    public class PigStewPowder : BaseDish
     {
-        public TasteSnake()
+        public PigStewPowder()
         {
             Id = 2;
-            Name = "口味蛇";
+            Name = "猪肉炖粉条";
         }
 
         public override void PointDish(PointDishContext pointDishContext)
