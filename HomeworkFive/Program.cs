@@ -71,6 +71,10 @@ namespace HomeworkFive
                 Console.WriteLine("*************静态字段单例输出菜单*************");
                 SingletonForStaticField.GetDishMenu().ShowDish();
             }
+
+            {
+                //test
+            }
             Console.ReadKey();
         }
     }
