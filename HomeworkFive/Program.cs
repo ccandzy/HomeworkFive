@@ -1,6 +1,7 @@
 ﻿using HomeworkFive.Factory;
 using HomeworkFive.Factory.AbstractFactory;
 using HomeworkFive.Model;
+using HomeworkFive.Singleton;
 using System;
 
 namespace HomeworkFive
@@ -62,6 +63,14 @@ namespace HomeworkFive
                 dishAbstractFactory.Show();
             }
 
+            {
+                Console.WriteLine("*************输出菜单*************");
+                SingletonDishMenu.CreateDishMenu().ShowDish();
+                Console.WriteLine("*************静态构造函数单例输出菜单*************");
+                SingletonForStaticConstructor.GetDishMenu().ShowDish();
+                Console.WriteLine("*************静态字段单例输出菜单*************");
+                SingletonForStaticField.GetDishMenu().ShowDish();
+            }
             Console.ReadKey();
         }
     }
