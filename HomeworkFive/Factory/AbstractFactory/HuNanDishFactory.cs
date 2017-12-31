@@ -1,18 +1,19 @@
-﻿using HomeworkFive.Model;
+﻿using HomeworkFiveBaseModel;
+using HomeworkFiveModel.Model;
 
 namespace HomeworkFive.Factory.AbstractFactory
 {
     public class HuNanDishFactory : DishAbstractFactory
     {
-        public override BaseDish CreateDish()
+        public override AbstractFood CreateDish()
         {
             return new WoundBloodWang();
         }
-        public override BaseDish CreateHotDish()
+        public override AbstractFood CreateHotDish()
         {
             return new ChiliFryMeat();
         }
-        public override BaseDish CreateSpicyDish()
+        public override AbstractFood CreateSpicyDish()
         {
             return new TasteSnake();
         }

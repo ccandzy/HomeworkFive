@@ -1,14 +1,17 @@
 ﻿using HomeworkFive.Factory;
 using HomeworkFive.Factory.AbstractFactory;
-using HomeworkFive.Model;
 using HomeworkFive.Singleton;
+using HomeworkFiveBaseModel;
+using HomeworkFiveBaseModel.Context;
+using HomeworkFiveModel.Model;
 using System;
+using System.Collections.Generic;
 
 namespace HomeworkFive
 {
     class Program
     {
-
+        private static int UserEnter = 0;
         static void Main(string[] args)
         {
             {
@@ -24,8 +27,8 @@ namespace HomeworkFive
             {
                 Consumer consumer = new Consumer { Name ="张山"};
 
-                BaseDish baseDish = SimpleDishFactory.PointDish(1);
-                PointDishContext pointDishContext = new PointDishContext()
+                AbstractFood baseDish = SimpleDishFactory.PointDish(1);
+                DishContext pointDishContext = new DishContext()
                 {
                     ConsumerName = consumer.Name,
                     TableNumber = "001",
@@ -37,9 +40,9 @@ namespace HomeworkFive
 
             {
                 Consumer consumer = new Consumer { Name = "李四" };
-                IFactory factory = DishFactoryMethod.CreateFactory(5);
-                BaseDish baseDish = factory.CreateDish();
-                PointDishContext pointDishContext = new PointDishContext()
+                IFactory factory = DishFactoryMethod.CreateFactory(105);
+                AbstractFood baseDish = factory.CreateDish();
+                DishContext pointDishContext = new DishContext()
                 {
                     ConsumerName = consumer.Name,
                     TableNumber = "002",
@@ -70,12 +73,53 @@ namespace HomeworkFive
                 SingletonForStaticConstructor.GetDishMenu().ShowDish();
                 Console.WriteLine("*************静态字段单例输出菜单*************");
                 SingletonForStaticField.GetDishMenu().ShowDish();
+
+
+                Console.WriteLine("*************输入编号进行点菜，输入OK完成点菜*************");
+
+                Consumer consumer = new Consumer { Name = "cc" };
+                ConsumerContext consumerContext = new ConsumerContext
+                {
+                    ConsumerName = consumer.Name,
+                    ConsumerTable = "001",
+                    AbstractFoodList = new List<AbstractFood>()
+                };
+                consumer.Show(consumerContext);
+
+                while(true)
+                {
+                    string userEnter = Console.ReadLine();
+                    if (userEnter.ToUpper() == "OK") break;
+                    if (!ValidationUserEnter(userEnter)) continue;
+                    AbstractFood baseDish = SimpleDishFactory.PointDish(UserEnter);
+                    DishContext pointDishContext = new DishContext()
+                    {
+                        ConsumerName = consumer.Name,
+                        TableNumber = consumerContext.ConsumerTable,
+                        Quantity = 1,
+                        HotType = "特辣"
+                    };
+                    baseDish.PointDish(pointDishContext);
+                    consumerContext.AbstractFoodList.Add(baseDish);
+                }
+                Console.WriteLine($"*************{consumer.Name}先生/女士,你确认你的菜单：*************");
+                consumerContext.AbstractFoodList.ForEach(x => x.Show());
             }
 
             {
-                //test
+                
             }
             Console.ReadKey();
+        }
+
+        private static bool ValidationUserEnter(string sEnter)
+        {
+            if (!int.TryParse(sEnter, out UserEnter))
+            {
+                Console.WriteLine("输入字符串不正确！");
+                return false;
+            }
+            return true;
         }
     }
 }

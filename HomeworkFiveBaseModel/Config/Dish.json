@@ -1,0 +1,18 @@
+﻿[
+  {
+    "NameSpaceName": "HomeworkFiveModel",
+    "ClassList": [
+      "HomeworkFiveModel.Model.BackPanMeat",
+      "HomeworkFiveModel.Model.EggFriedRice"
+    ]
+  },
+  {
+    "NameSpaceName": "HomeworkFiveGuangDongModel",
+    "ClassList": [
+      "HomeworkFiveGuangDongModel.WhiteCutChicken",
+      "HomeworkFiveGuangDongModel.BakePig"
+    ]
+  }
+]
+  
+

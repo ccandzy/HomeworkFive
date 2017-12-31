@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HomeworkFive.Model;
+﻿using HomeworkFiveBaseModel;
+using HomeworkFiveModel.Model;
 
 namespace HomeworkFive.Factory.AbstractFactory
 {
     public class NorthEastDishFactory : DishAbstractFactory
     {
-        public override BaseDish CreateDish()
+        public override AbstractFood CreateDish()
         {
             return new PigStewPowder();
         }
@@ -19,7 +15,7 @@ namespace HomeworkFive.Factory.AbstractFactory
             return new Noodles();
         }
 
-        public override BaseDish CreateHotDish()
+        public override AbstractFood CreateHotDish()
         {
             return new PanPackMeat();
         }
@@ -34,7 +30,7 @@ namespace HomeworkFive.Factory.AbstractFactory
             return new Liquor();
         }
 
-        public override BaseDish CreateSpicyDish()
+        public override AbstractFood CreateSpicyDish()
         {
             return new ThreeFresh();
         }

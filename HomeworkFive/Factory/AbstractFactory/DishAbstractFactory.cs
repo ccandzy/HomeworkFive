@@ -1,19 +1,15 @@
-﻿using HomeworkFive.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HomeworkFiveBaseModel;
+
 
 namespace HomeworkFive.Factory.AbstractFactory
 {
     public abstract class DishAbstractFactory
     {
-        public abstract BaseDish CreateDish();
+        public abstract AbstractFood CreateDish();
 
-        public abstract BaseDish CreateHotDish();
+        public abstract AbstractFood CreateHotDish();
 
-        public abstract BaseDish CreateSpicyDish();
+        public abstract AbstractFood CreateSpicyDish();
 
         public abstract BaseFood CreateFood();
 

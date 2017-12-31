@@ -1,8 +1,13 @@
-﻿using System;
+﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using HomeworkFive.Singleton;
 using System.Collections.Generic;
+using System.IO;
+using HomeworkFiveModel.Model;
+using HomeworkFiveBaseModel;
+using HomeworkFiveBaseModel.Config;
+using HomeworkFiveBaseModel.Factory;
 
 namespace UnitTest
 {
@@ -27,7 +32,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSingletonDish()
         {
-            Assert.AreEqual(SingletonDishMenu.CreateDishMenu(), SingletonDishMenu.CreateDishMenu()); 
+            Assert.AreEqual(SingletonDishMenu.CreateDishMenu(), SingletonDishMenu.CreateDishMenu());
         }
 
         [TestMethod]
@@ -35,6 +40,32 @@ namespace UnitTest
         {
             SingletonForStaticConstructor.GetDishMenu();
             Assert.AreEqual(SingletonForStaticConstructor.GetDishMenu(), SingletonForStaticConstructor.GetDishMenu());
+        }
+
+        [TestMethod]
+        public void TestReadJsonConfig()
+        {
+            var sJson = File.ReadAllText(OptionalDishFactory.CurrentPath + @"\Config\Dish.json");
+            List<OptionalDishConfig> listBaseDish = JsonHelper.StringToObject<List<OptionalDishConfig>>(sJson);
+            Assert.AreEqual(1, listBaseDish.Count);
+            Assert.AreEqual(2, listBaseDish[0].ClassList.Count);
+        }
+
+        [TestMethod]
+        public void TestWriteJson()
+        {
+            List<OptionalDishConfig> opDishList = new List<OptionalDishConfig>
+            {
+                new OptionalDishConfig{NameSpaceName="testName",ClassList=new List<string>{ "1","2"} }
+            };
+
+            var sJosn = JsonHelper.ObjectToString(opDishList);
+        }
+        [TestMethod]
+        public void TestOptionalDishFactory()
+        {
+            List<AbstractFood> opDishList = OptionalDishFactory.CreateDish();
+            Assert.AreEqual(2, opDishList.Count);
         }
     }
 }
