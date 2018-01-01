@@ -14,12 +14,9 @@ namespace HomeworkFiveModel.Model
 
         public override void DoDish()
         {
-            throw new NotImplementedException();
-        }
-
-        public override void PointDish(DishContext pointDishContext)
-        {
-            Console.WriteLine($"{pointDishContext.TableNumber}桌{pointDishContext.ConsumerName}{Name}{pointDishContext.Quantity}份,口味{pointDishContext.HotType}");
+            Console.WriteLine("取猪血");
+            Console.WriteLine("油炸");
+            Console.WriteLine("上火锅");
         }
 
         public override void Show()

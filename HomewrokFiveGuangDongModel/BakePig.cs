@@ -14,14 +14,11 @@ namespace HomeworkFiveGuangDongModel
         }
         public override void DoDish()
         {
-
+            Console.WriteLine("取整猪");
+            Console.WriteLine("木材烧火");
+            Console.WriteLine("开始烤");
         }
-
-        public override void PointDish(DishContext pointDishContext)
-        {
-            Console.WriteLine($"{pointDishContext.TableNumber}桌{pointDishContext.ConsumerName}{Name}{pointDishContext.Quantity}份,口味{pointDishContext.HotType}");
-        }
-
+        
         public override void Show()
         {
             Console.WriteLine($"{Id}: {Name},推荐指数:★★★★★");

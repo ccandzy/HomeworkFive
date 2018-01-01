@@ -12,17 +12,11 @@ namespace HomeworkFiveModel.Model
             Name = "锅包肉";
            
         }
-
         public override void DoDish()
         {
-            
+            Console.WriteLine("取荷叶");
+            Console.WriteLine("大火闷1小时");
         }
-
-        public override void PointDish(DishContext pointDishContext)
-        {
-            
-        }
-
         public override void Show()
         {
             Console.WriteLine($"{Id}: {Name},推荐指数:★★★★★");

@@ -1,13 +1,15 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HomeworkFiveBaseModel.Context
 {
     public class ConsumerContext
     {
+        public ConsumerContext()
+        {
+            AbstractFoodList = new List<AbstractFood>();
+        }
         public string ConsumerTable { get; set; }
         public string ConsumerName { get; set; }
         public int CumsummerNumber { get; set; }

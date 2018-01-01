@@ -1,6 +1,5 @@
 ﻿using HomeworkFiveBaseModel;
 using System;
-using HomeworkFiveBaseModel.Context;
 
 namespace HomeworkFiveGuangDongModel
 {
@@ -14,13 +13,11 @@ namespace HomeworkFiveGuangDongModel
 
         public override void DoDish()
         {
-           
+            Console.WriteLine("半边鸡块");
+            Console.WriteLine("均匀切好");
+            Console.WriteLine("蒸50分钟");
         }
-
-        public override void PointDish(DishContext pointDishContext)
-        {
-            Console.WriteLine($"{pointDishContext.TableNumber}桌{pointDishContext.ConsumerName}{Name}{pointDishContext.Quantity}份,口味{pointDishContext.HotType}");
-        }
+        
 
         public override void Show()
         {

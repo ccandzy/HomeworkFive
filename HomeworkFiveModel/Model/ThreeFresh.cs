@@ -14,12 +14,12 @@ namespace HomeworkFiveModel.Model
 
         public override void DoDish()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("土豆切块");
+            Console.WriteLine("茄子切块");
+            Console.WriteLine("豆角切块");
+            Console.WriteLine("大火翻炒");
         }
-
-        public override void PointDish(DishContext pointDishContext)
-        {
-        }
+        
 
         public override void Show()
         {
