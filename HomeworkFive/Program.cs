@@ -114,9 +114,31 @@ namespace HomeworkFive
 
             {
                 TaskFactory taskFactory = new TaskFactory();
-                taskFactory.StartNew(()=>{ ConsumerIsComing(new Consumer { Name = "面向对象"});});
-                //taskFactory.StartNew(() =>{ ConsumerIsComing(new Consumer { Name = "面向抽象" }); });
-                //taskFactory.StartNew(() =>{ ConsumerIsComing(new Consumer { Name = "面向过程" }); });
+                List<Task> taskList = new List<Task>();
+                List<Consumer> consumerList = new List<Consumer>();
+
+                Consumer consumerO = new Consumer { Name = "面向对象", PrintColor = ConsoleColor.Red };
+                consumerList.Add(consumerO);
+                taskList.Add(taskFactory.StartNew(() => { ConsumerIsComing(consumerO); }));
+
+                Consumer consumerA = new Consumer { Name = "面向抽象", PrintColor = ConsoleColor.Blue };
+                consumerList.Add(consumerA);
+                taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerA); }));
+
+                Consumer consumerB = new Consumer { Name = "面向过程", PrintColor = ConsoleColor.Cyan };
+                consumerList.Add(consumerB);
+                taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerB); }));
+
+                taskFactory.ContinueWhenAll(taskList.ToArray(),(x)=>
+                {
+                    List<AbstractFood> listAbstractFood = new List<AbstractFood>();
+                    foreach (var consumer in consumerList)
+                    {
+                        listAbstractFood.Add(consumer.ConsumerContext.AbstractFoodList.OrderByDescending(z => z.DishContext.Review).ToList()[0]);
+                    }
+                    listAbstractFood.OrderByDescending(y => y.DishContext.Review).ToList();
+                    PrintHelper.PrintWrite($"客人评分最高的菜是{listAbstractFood[0].Name}", ConsoleColor.DarkCyan);
+                });
             }
             Console.ReadKey();
         }
@@ -134,20 +156,31 @@ namespace HomeworkFive
         private static void ConsumerIsComing(Consumer consumer)
         {
             ConsumerContext consumerContext = new ConsumerContext { ConsumerName = consumer.Name };
-
+            consumer.Show(consumerContext);
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine();
-                AbstractFood abstractFood = SimpleDishFactory.PointDish(new RandomHelper().GetNumber(1, 10));
-                abstractFood.PointDish(new DishContext { Id=abstractFood.Id,ConsumerName= consumer.Name , Quantity = 1, TableNumber = "002", HotType="正常" });
-                abstractFood.DoDish();
-                abstractFood.Taste();
-                abstractFood.Review();
+                AbstractFood abstractFood = CreateFood(consumer);
                 consumerContext.AbstractFoodList.Add(abstractFood);
             }
-            var reviewList = consumerContext.AbstractFoodList.OrderByDescending(x => x.DishContext.Review).ToList();
-            Console.WriteLine($"{consumer.Name}认为最好吃的菜是{reviewList[0].Name}");
-            Console.WriteLine($"{consumer.Name}认为最难吃的菜是{reviewList[reviewList.Count-1].Name}");
+            PrintResult(consumer);
+        }
+
+        private static AbstractFood CreateFood(Consumer consumer)
+        {
+            Console.WriteLine();
+            AbstractFood abstractFood = SimpleDishFactory.PointDish(new RandomHelper().GetNumber(1, 10));
+            abstractFood.PointDish(new DishContext { Id = abstractFood.Id, ConsumerName = consumer.Name, Quantity = 1, TableNumber = "002", HotType = "正常", PrintColor = consumer.PrintColor });
+            abstractFood.DoDish();
+            abstractFood.Taste();
+            abstractFood.Review();
+            return abstractFood;
+        }
+
+        private static void PrintResult(Consumer consumer)
+        {
+            var reviewList = consumer.ConsumerContext.AbstractFoodList.OrderByDescending(x => x.DishContext.Review).ToList();
+            PrintHelper.PrintWrite($"{consumer.Name}认为最好吃的菜是{reviewList[0].Name}", consumer.PrintColor);
+            PrintHelper.PrintWrite($"{consumer.Name}认为最难吃的菜是{reviewList[reviewList.Count - 1].Name}", consumer.PrintColor);
         }
     }
 }

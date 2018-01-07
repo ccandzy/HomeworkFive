@@ -14,13 +14,13 @@ namespace HomeworkFiveBaseModel
         public DishContext DishContext { get; private set; }
         public void Taste()
         {
-            Console.WriteLine("品尝");
+            PrintHelper.PrintWrite("品尝", DishContext.PrintColor);
         }
 
         public virtual void Review()
         {
             var review = new RandomHelper().GetNumber(0, 20);
-            Console.WriteLine($"{Name}获得{review}分" );
+            PrintHelper.PrintWrite($"{Name}获得{review}分",DishContext.PrintColor );
             DishContext.Review = review;
         }
 
@@ -29,12 +29,12 @@ namespace HomeworkFiveBaseModel
         public void PointDish(DishContext pointDishContext)
         {
             DishContext = pointDishContext;
-            Console.WriteLine($"{pointDishContext.TableNumber}桌{pointDishContext.ConsumerName}{Name}{pointDishContext.Quantity}份,口味{pointDishContext.HotType}");
+            PrintHelper.PrintWrite($"{pointDishContext.TableNumber}桌{pointDishContext.ConsumerName}{Name}{pointDishContext.Quantity}份,口味{pointDishContext.HotType}", DishContext.PrintColor);
         }
 
         public void ConsumerConfirmDish()
         {
-            Console.WriteLine($"{Name}{DishContext.Quantity}份,口味{DishContext.HotType}");
+            PrintHelper.PrintWrite($"{Name}{DishContext.Quantity}份,口味{DishContext.HotType}", DishContext.PrintColor);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using HomeworkFiveBaseModel;
 using HomeworkFiveBaseModel.Context;
+using HomeworkFiveBaseModel.Common;
+
 namespace HomeworkFiveModel.Model
 {
     public class SweetPorridge:BasePorridge
@@ -13,7 +15,7 @@ namespace HomeworkFiveModel.Model
 
         public override void Show()
         {
-            Console.WriteLine($"{Id}: {Name},推荐指数:★★★★");
+            PrintHelper.PrintWrite($"{Id}: {Name},推荐指数:★★★★");
         }
     }
 }

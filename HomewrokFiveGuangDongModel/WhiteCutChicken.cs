@@ -1,4 +1,5 @@
 ﻿using HomeworkFiveBaseModel;
+using HomeworkFiveBaseModel.Common;
 using System;
 
 namespace HomeworkFiveGuangDongModel
@@ -13,15 +14,15 @@ namespace HomeworkFiveGuangDongModel
 
         public override void DoDish()
         {
-            Console.WriteLine("半边鸡块");
-            Console.WriteLine("均匀切好");
-            Console.WriteLine("蒸50分钟");
+            PrintHelper.PrintWrite("半边鸡块", DishContext.PrintColor);
+            PrintHelper.PrintWrite("均匀切好", DishContext.PrintColor);
+            PrintHelper.PrintWrite("蒸50分钟", DishContext.PrintColor);
         }
         
 
         public override void Show()
         {
-            Console.WriteLine($"{Id}: {Name},推荐指数:★★★★★");
+            PrintHelper.PrintWrite($"{Id}: {Name},推荐指数:★★★★★");
         }
     }
 }

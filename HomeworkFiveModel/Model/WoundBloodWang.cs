@@ -1,6 +1,7 @@
 ﻿using System;
 using HomeworkFiveBaseModel;
 using HomeworkFiveBaseModel.Context;
+using HomeworkFiveBaseModel.Common;
 
 namespace HomeworkFiveModel.Model
 {
@@ -14,14 +15,14 @@ namespace HomeworkFiveModel.Model
 
         public override void DoDish()
         {
-            Console.WriteLine("取猪血");
-            Console.WriteLine("油炸");
-            Console.WriteLine("上火锅");
+            PrintHelper.PrintWrite("取猪血", DishContext.PrintColor);
+            PrintHelper.PrintWrite("油炸", DishContext.PrintColor);
+            PrintHelper.PrintWrite("上火锅", DishContext.PrintColor);
         }
 
         public override void Show()
         {
-            Console.WriteLine($"{Id}: {Name},推荐指数:★★★★★");
+            PrintHelper.PrintWrite($"{Id}: {Name},推荐指数:★★★★★");
         }
     }
 }

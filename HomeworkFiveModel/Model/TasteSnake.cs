@@ -1,6 +1,8 @@
 ﻿using System;
 using HomeworkFiveBaseModel;
 using HomeworkFiveBaseModel.Context;
+using HomeworkFiveBaseModel.Common;
+
 namespace HomeworkFiveModel.Model
 {
     public class TasteSnake : AbstractFood
@@ -13,14 +15,14 @@ namespace HomeworkFiveModel.Model
 
         public override void DoDish()
         {
-            Console.WriteLine("去蛇皮");
-            Console.WriteLine("吃蛇胆");
-            Console.WriteLine("先炒再炖");
+            PrintHelper.PrintWrite("去蛇皮", DishContext.PrintColor);
+            PrintHelper.PrintWrite("吃蛇胆", DishContext.PrintColor);
+            PrintHelper.PrintWrite("先炒再炖", DishContext.PrintColor);
         }
         
         public override void Show()
         {
-            Console.WriteLine($"{Id}: {Name},推荐指数:★★★★★");
+            PrintHelper.PrintWrite($"{Id}: {Name},推荐指数:★★★★★");
         }
     }
 }

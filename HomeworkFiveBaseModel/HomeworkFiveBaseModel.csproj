@@ -48,6 +48,7 @@
     <Compile Include="BaseFood.cs" />
     <Compile Include="BasePorridge.cs" />
     <Compile Include="BaseSoup.cs" />
+    <Compile Include="Common\PrintHelper.cs" />
     <Compile Include="Common\RandomHelper.cs" />
     <Compile Include="Config\JsonHelper.cs" />
     <Compile Include="Context\ConsumerContext.cs" />
