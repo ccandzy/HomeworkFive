@@ -11,7 +11,7 @@ namespace HomeworkFiveBaseModel
         public decimal Price { get; set; }
         public string Introduction { get; set; }
 
-        public DishContext DishContext { get; private set; }
+        public DishContext DishContext { get; protected set; }
         public void Taste()
         {
             PrintHelper.PrintWrite("品尝", DishContext.PrintColor);

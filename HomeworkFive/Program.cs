@@ -117,27 +117,21 @@ namespace HomeworkFive
                 List<Task> taskList = new List<Task>();
                 List<Consumer> consumerList = new List<Consumer>();
 
-                Consumer consumerO = new Consumer { Name = "面向对象", PrintColor = ConsoleColor.Red };
+                Consumer consumerO = new Consumer { Name = "面向对象", PrintColor = ConsoleColor.DarkCyan };
                 consumerList.Add(consumerO);
                 taskList.Add(taskFactory.StartNew(() => { ConsumerIsComing(consumerO); }));
 
-                Consumer consumerA = new Consumer { Name = "面向抽象", PrintColor = ConsoleColor.Blue };
-                consumerList.Add(consumerA);
-                taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerA); }));
+                //Consumer consumerA = new Consumer { Name = "面向抽象", PrintColor = ConsoleColor.Blue };
+                //consumerList.Add(consumerA);
+                //taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerA); }));
 
-                Consumer consumerB = new Consumer { Name = "面向过程", PrintColor = ConsoleColor.Cyan };
-                consumerList.Add(consumerB);
-                taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerB); }));
+                //Consumer consumerB = new Consumer { Name = "面向过程", PrintColor = ConsoleColor.Cyan };
+                //consumerList.Add(consumerB);
+                //taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerB); }));
 
                 taskFactory.ContinueWhenAll(taskList.ToArray(),(x)=>
                 {
-                    List<AbstractFood> listAbstractFood = new List<AbstractFood>();
-                    foreach (var consumer in consumerList)
-                    {
-                        listAbstractFood.Add(consumer.ConsumerContext.AbstractFoodList.OrderByDescending(z => z.DishContext.Review).ToList()[0]);
-                    }
-                    listAbstractFood.OrderByDescending(y => y.DishContext.Review).ToList();
-                    PrintHelper.PrintWrite($"客人评分最高的菜是{listAbstractFood[0].Name}", ConsoleColor.DarkCyan);
+                    PrintMostHighFood(consumerList);
                 });
             }
             Console.ReadKey();
@@ -170,6 +164,7 @@ namespace HomeworkFive
             Console.WriteLine();
             AbstractFood abstractFood = SimpleDishFactory.PointDish(new RandomHelper().GetNumber(1, 10));
             abstractFood.PointDish(new DishContext { Id = abstractFood.Id, ConsumerName = consumer.Name, Quantity = 1, TableNumber = "002", HotType = "正常", PrintColor = consumer.PrintColor });
+            abstractFood = new AbstractBuyFoodDecorator(abstractFood);
             abstractFood.DoDish();
             abstractFood.Taste();
             abstractFood.Review();
@@ -181,6 +176,18 @@ namespace HomeworkFive
             var reviewList = consumer.ConsumerContext.AbstractFoodList.OrderByDescending(x => x.DishContext.Review).ToList();
             PrintHelper.PrintWrite($"{consumer.Name}认为最好吃的菜是{reviewList[0].Name}", consumer.PrintColor);
             PrintHelper.PrintWrite($"{consumer.Name}认为最难吃的菜是{reviewList[reviewList.Count - 1].Name}", consumer.PrintColor);
+        }
+
+        private static void PrintMostHighFood(List<Consumer> consumerList)
+        {
+            List<AbstractFood> listAbstractFood = new List<AbstractFood>();
+            foreach (var consumer in consumerList)
+            {
+                AbstractFood abstractFood = consumer.ConsumerContext.AbstractFoodList.OrderByDescending(z => z.DishContext.Review).ToList()[0];
+                listAbstractFood.Add(abstractFood);
+            }
+            listAbstractFood.OrderByDescending(y => y.DishContext.Review).ToList();
+            PrintHelper.PrintWrite($"客人评分最高的菜是{listAbstractFood[0].Name}", ConsoleColor.Red);
         }
     }
 }

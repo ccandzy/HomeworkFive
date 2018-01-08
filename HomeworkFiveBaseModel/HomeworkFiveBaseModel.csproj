@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractBuyFoodDecorator.cs" />
     <Compile Include="AbstractFood.cs" />
+    <Compile Include="AbstractFoodDecorator.cs" />
     <Compile Include="BaseFood.cs" />
     <Compile Include="BasePorridge.cs" />
     <Compile Include="BaseSoup.cs" />
