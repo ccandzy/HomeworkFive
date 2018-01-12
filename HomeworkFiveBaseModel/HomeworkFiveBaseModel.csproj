@@ -44,9 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractBuyFoodDecorator.cs" />
+    <Compile Include="Decorator\AbstractBuyFoodDecorator.cs" />
     <Compile Include="AbstractFood.cs" />
-    <Compile Include="AbstractFoodDecorator.cs" />
+    <Compile Include="Decorator\AbstractCutFoodDecorator.cs" />
+    <Compile Include="Decorator\AbstractFoodDecorator.cs" />
     <Compile Include="BaseFood.cs" />
     <Compile Include="BasePorridge.cs" />
     <Compile Include="BaseSoup.cs" />
@@ -55,6 +56,9 @@
     <Compile Include="Config\JsonHelper.cs" />
     <Compile Include="Context\ConsumerContext.cs" />
     <Compile Include="Context\DishContext.cs" />
+    <Compile Include="Decorator\AbstractPendFoodDecorator.cs" />
+    <Compile Include="Decorator\AbstractServingFoodDecorator.cs" />
+    <Compile Include="Decorator\AbstractWahFoodDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

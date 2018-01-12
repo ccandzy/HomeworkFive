@@ -12,6 +12,10 @@ namespace HomeworkFiveBaseModel
 
         public AbstractFoodDecorator(AbstractFood abstractFood)
         {
+            this.Id = abstractFood.Id;
+            this.Name = abstractFood.Name;
+            this.Introduction = abstractFood.Introduction;
+            this.Price = abstractFood.Price;
             _abstractFood = abstractFood;
             DishContext =abstractFood.DishContext;
         }

@@ -4,6 +4,7 @@ using HomeworkFive.Singleton;
 using HomeworkFiveBaseModel;
 using HomeworkFiveBaseModel.Common;
 using HomeworkFiveBaseModel.Context;
+using HomeworkFiveBaseModel.Decorator;
 using HomeworkFiveModel.Model;
 using System;
 using System.Collections.Generic;
@@ -123,11 +124,11 @@ namespace HomeworkFive
 
                 //Consumer consumerA = new Consumer { Name = "面向抽象", PrintColor = ConsoleColor.Blue };
                 //consumerList.Add(consumerA);
-                //taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerA); }));
+                //taskList.Add(taskFactory.StartNew(() => { ConsumerIsComing(consumerA); }));
 
                 //Consumer consumerB = new Consumer { Name = "面向过程", PrintColor = ConsoleColor.Cyan };
                 //consumerList.Add(consumerB);
-                //taskList.Add(taskFactory.StartNew(() =>{ ConsumerIsComing(consumerB); }));
+                //taskList.Add(taskFactory.StartNew(() => { ConsumerIsComing(consumerB); }));
 
                 taskFactory.ContinueWhenAll(taskList.ToArray(),(x)=>
                 {
@@ -164,7 +165,11 @@ namespace HomeworkFive
             Console.WriteLine();
             AbstractFood abstractFood = SimpleDishFactory.PointDish(new RandomHelper().GetNumber(1, 10));
             abstractFood.PointDish(new DishContext { Id = abstractFood.Id, ConsumerName = consumer.Name, Quantity = 1, TableNumber = "002", HotType = "正常", PrintColor = consumer.PrintColor });
+            abstractFood = new AbstractCutFoodDecorator(abstractFood);
+            abstractFood = new AbstractWashFoodDecorator(abstractFood);
             abstractFood = new AbstractBuyFoodDecorator(abstractFood);
+            abstractFood = new AbstractPendFoodDecorator(abstractFood);
+            abstractFood = new AbstractServingFoodDecorator(abstractFood);
             abstractFood.DoDish();
             abstractFood.Taste();
             abstractFood.Review();
