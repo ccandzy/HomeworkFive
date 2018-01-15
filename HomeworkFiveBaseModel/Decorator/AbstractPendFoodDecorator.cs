@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeworkFiveBaseModel.Common;
 
 namespace HomeworkFiveBaseModel.Decorator
 {
@@ -20,7 +21,7 @@ namespace HomeworkFiveBaseModel.Decorator
 
         private void PendFood()
         {
-            Console.WriteLine("摆盘");
+            PrintHelper.PrintWrite("摆盘",DishContext.PrintColor);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeworkFiveBaseModel.Common;
 
 namespace HomeworkFiveBaseModel.Decorator
 {
@@ -20,7 +21,7 @@ namespace HomeworkFiveBaseModel.Decorator
 
         private void CutFood()
         {
-            Console.WriteLine("切菜");
+            PrintHelper.PrintWrite("切菜", DishContext.PrintColor);
         }
     }
 }

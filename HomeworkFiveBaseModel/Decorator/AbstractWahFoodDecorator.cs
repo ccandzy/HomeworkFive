@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using HomeworkFiveBaseModel.Common;
 
 namespace HomeworkFiveBaseModel.Decorator
 {
@@ -20,7 +17,7 @@ namespace HomeworkFiveBaseModel.Decorator
 
         private void WashFood()
         {
-            Console.WriteLine("洗菜");
+            PrintHelper.PrintWrite("洗菜",DishContext.PrintColor);
         }
     }
 }

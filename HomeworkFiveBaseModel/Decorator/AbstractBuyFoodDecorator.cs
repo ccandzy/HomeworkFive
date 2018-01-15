@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeworkFiveBaseModel.Common;
 
 namespace HomeworkFiveBaseModel
 {
@@ -20,7 +21,7 @@ namespace HomeworkFiveBaseModel
 
         public void BuyFood()
         {
-            Console.WriteLine("买菜");
+            PrintHelper.PrintWrite("买菜",DishContext.PrintColor);
         }
     }
 }

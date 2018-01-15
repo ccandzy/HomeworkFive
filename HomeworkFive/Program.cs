@@ -1,15 +1,8 @@
-﻿using HomeworkFive.Factory;
-using HomeworkFive.Factory.AbstractFactory;
-using HomeworkFive.Singleton;
-using HomeworkFiveBaseModel;
-using HomeworkFiveBaseModel.Common;
-using HomeworkFiveBaseModel.Context;
-using HomeworkFiveBaseModel.Decorator;
-using HomeworkFiveModel.Model;
+﻿using HomeworkFiveModel.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using HomeworkFive.Helper;
 
 namespace HomeworkFive
 {
@@ -72,12 +65,12 @@ namespace HomeworkFive
             }
 
             {
-                Console.WriteLine("*************输出菜单*************");
-                SingletonDishMenu.CreateDishMenu().ShowDish();
-                Console.WriteLine("*************静态构造函数单例输出菜单*************");
-                SingletonForStaticConstructor.GetDishMenu().ShowDish();
-                Console.WriteLine("*************静态字段单例输出菜单*************");
-                SingletonForStaticField.GetDishMenu().ShowDish();
+                //Console.WriteLine("*************输出菜单*************");
+                //SingletonDishMenu.CreateDishMenu().ShowDish();
+                //Console.WriteLine("*************静态构造函数单例输出菜单*************");
+                //SingletonForStaticConstructor.GetDishMenu().ShowDish();
+                //Console.WriteLine("*************静态字段单例输出菜单*************");
+                //SingletonForStaticField.GetDishMenu().ShowDish();
 
 
                 //Console.WriteLine("*************输入编号进行点菜，输入OK完成点菜*************");
@@ -87,20 +80,20 @@ namespace HomeworkFive
                 //{
                 //    ConsumerName = consumer.Name,
                 //    ConsumerTable = "001",
-                //    CumsummerNumber=2,
+                //    CumsummerNumber = 2,
                 //    AbstractFoodList = new List<AbstractFood>()
                 //};
                 //consumer.Show(consumerContext);
 
-                //while(true)
+                //while (true)
                 //{
                 //    string userEnter = Console.ReadLine();
                 //    if (userEnter.ToUpper() == "OK") break;
-                //    if (!ValidationUserEnter(userEnter)) continue;
+                //    if (!ValidationHelper.ValidationUserEnter(userEnter, out UserEnter)) continue;
                 //    AbstractFood baseDish = SimpleDishFactory.PointDish(UserEnter);
                 //    DishContext pointDishContext = new DishContext()
                 //    {
-                //        Id=baseDish.Id,
+                //        Id = baseDish.Id,
                 //        ConsumerName = consumer.Name,
                 //        TableNumber = consumerContext.ConsumerTable,
                 //        Quantity = 1,
@@ -120,79 +113,22 @@ namespace HomeworkFive
 
                 Consumer consumerO = new Consumer { Name = "面向对象", PrintColor = ConsoleColor.DarkCyan };
                 consumerList.Add(consumerO);
-                taskList.Add(taskFactory.StartNew(() => { ConsumerIsComing(consumerO); }));
+                taskList.Add(taskFactory.StartNew(() => { ConsumerHelper.ConsumerIsComing(consumerO); }));
 
-                //Consumer consumerA = new Consumer { Name = "面向抽象", PrintColor = ConsoleColor.Blue };
-                //consumerList.Add(consumerA);
-                //taskList.Add(taskFactory.StartNew(() => { ConsumerIsComing(consumerA); }));
+                Consumer consumerA = new Consumer { Name = "面向抽象", PrintColor = ConsoleColor.Blue };
+                consumerList.Add(consumerA);
+                taskList.Add(taskFactory.StartNew(() => { ConsumerHelper.ConsumerIsComing(consumerA); }));
 
-                //Consumer consumerB = new Consumer { Name = "面向过程", PrintColor = ConsoleColor.Cyan };
-                //consumerList.Add(consumerB);
-                //taskList.Add(taskFactory.StartNew(() => { ConsumerIsComing(consumerB); }));
+                Consumer consumerB = new Consumer { Name = "面向过程", PrintColor = ConsoleColor.Cyan };
+                consumerList.Add(consumerB);
+                taskList.Add(taskFactory.StartNew(() => { ConsumerHelper.ConsumerIsComing(consumerB); }));
 
                 taskFactory.ContinueWhenAll(taskList.ToArray(),(x)=>
                 {
-                    PrintMostHighFood(consumerList);
+                    ConsumerHelper.PrintMostHighFood(consumerList);
                 });
             }
             Console.ReadKey();
-        }
-
-        private static bool ValidationUserEnter(string sEnter)
-        {
-            if (!int.TryParse(sEnter, out UserEnter))
-            {
-                Console.WriteLine("输入字符串不正确！");
-                return false;
-            }
-            return true;
-        }
-
-        private static void ConsumerIsComing(Consumer consumer)
-        {
-            ConsumerContext consumerContext = new ConsumerContext { ConsumerName = consumer.Name };
-            consumer.Show(consumerContext);
-            for (int i = 0; i < 5; i++)
-            {
-                AbstractFood abstractFood = CreateFood(consumer);
-                consumerContext.AbstractFoodList.Add(abstractFood);
-            }
-            PrintResult(consumer);
-        }
-
-        private static AbstractFood CreateFood(Consumer consumer)
-        {
-            Console.WriteLine();
-            AbstractFood abstractFood = SimpleDishFactory.PointDish(new RandomHelper().GetNumber(1, 10));
-            abstractFood.PointDish(new DishContext { Id = abstractFood.Id, ConsumerName = consumer.Name, Quantity = 1, TableNumber = "002", HotType = "正常", PrintColor = consumer.PrintColor });
-            abstractFood = new AbstractCutFoodDecorator(abstractFood);
-            abstractFood = new AbstractWashFoodDecorator(abstractFood);
-            abstractFood = new AbstractBuyFoodDecorator(abstractFood);
-            abstractFood = new AbstractPendFoodDecorator(abstractFood);
-            abstractFood = new AbstractServingFoodDecorator(abstractFood);
-            abstractFood.DoDish();
-            abstractFood.Taste();
-            abstractFood.Review();
-            return abstractFood;
-        }
-
-        private static void PrintResult(Consumer consumer)
-        {
-            var reviewList = consumer.ConsumerContext.AbstractFoodList.OrderByDescending(x => x.DishContext.Review).ToList();
-            PrintHelper.PrintWrite($"{consumer.Name}认为最好吃的菜是{reviewList[0].Name}", consumer.PrintColor);
-            PrintHelper.PrintWrite($"{consumer.Name}认为最难吃的菜是{reviewList[reviewList.Count - 1].Name}", consumer.PrintColor);
-        }
-
-        private static void PrintMostHighFood(List<Consumer> consumerList)
-        {
-            List<AbstractFood> listAbstractFood = new List<AbstractFood>();
-            foreach (var consumer in consumerList)
-            {
-                AbstractFood abstractFood = consumer.ConsumerContext.AbstractFoodList.OrderByDescending(z => z.DishContext.Review).ToList()[0];
-                listAbstractFood.Add(abstractFood);
-            }
-            listAbstractFood.OrderByDescending(y => y.DishContext.Review).ToList();
-            PrintHelper.PrintWrite($"客人评分最高的菜是{listAbstractFood[0].Name}", ConsoleColor.Red);
         }
     }
 }
