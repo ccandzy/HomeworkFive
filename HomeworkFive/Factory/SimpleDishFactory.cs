@@ -9,6 +9,7 @@ namespace HomeworkFive.Factory
         public static AbstractFood PointDish(int dishNumber)
         {
             string factoryName = ConfigurationManager.AppSettings[dishNumber.ToString()];
+            if (factoryName == null) return null;
             string sNameSpace = factoryName.Split(',')[0];
             string sClass = factoryName.Split(',')[1];
             var instanceModel = Assembly.Load(sNameSpace);

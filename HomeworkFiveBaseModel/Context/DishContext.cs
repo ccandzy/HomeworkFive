@@ -6,6 +6,10 @@ namespace HomeworkFiveBaseModel.Context
 {
     public class DishContext   
     {
+        public DishContext()
+        {
+            PrintColor = ConsoleColor.White;
+        }
         public int Id { get; set; }
         public string ConsumerName { get; set; }
         public string TableNumber { get; set; }
