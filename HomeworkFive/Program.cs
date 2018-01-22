@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using log4net;
 using System.Collections.Generic;
+using System.Linq;
 using HomeworkFiveModel.Model;
 using HomeworkFive.Helper;
 using HomeworkFiveBaseModel;
@@ -100,7 +101,7 @@ namespace HomeworkFive
 
             #region 5  做个点菜系统，用户输入可选菜id进行点菜：
             {
-                Console.ForegroundColor = ConsoleColor.White;
+               
                 Console.WriteLine();
                 Console.WriteLine("4  做个点菜系统，用户输入可选菜id进行点菜");
                 Console.WriteLine("*************输出菜单*************");
@@ -125,11 +126,12 @@ namespace HomeworkFive
 
                 while (true)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     string userEnter = Console.ReadLine();
                     if (userEnter.ToUpper() == "OK") break;
                     if (!ValidationHelper.ValidationUserEnter(userEnter, out UserEnter)) continue;
                     AbstractFood baseDish = SimpleDishFactory.PointDish(UserEnter);
-                    if (baseDish == null) { Console.WriteLine("输入的编号不存在，请从新输入"); }continue;
+                    if (baseDish == null) { Console.WriteLine("输入的编号不存在，请从新输入"); continue; }
                     DishContext pointDishContext = new DishContext()
                     {
                         Id = baseDish.Id,
@@ -139,7 +141,15 @@ namespace HomeworkFive
                         HotType = "特辣"
                     };
                     baseDish.PointDish(pointDishContext);
-                    consumerContext.AbstractFoodList.Add(baseDish);
+                    var isAlready = consumerContext.AbstractFoodList.FirstOrDefault(x => x.Id == baseDish.Id);
+                    if (isAlready == null)
+                    {
+                        consumerContext.AbstractFoodList.Add(baseDish);
+                    }
+                    else
+                    {
+                        isAlready.DishContext.Quantity = isAlready.DishContext.Quantity + 1;
+                    }
                 }
                 Console.WriteLine($"*************{consumer.Name}先生/女士,你确认你的菜单：*************");
                 consumerContext.AbstractFoodList.ForEach(x => x.ConsumerConfirmDish());
